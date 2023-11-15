@@ -1,22 +1,29 @@
 "use client";
-import React from "react";
-import { TextField, Button, Callout } from "@radix-ui/themes";
+import axios from "axios";
+import { z } from "zod";
+import "easymde/dist/easymde.min.css";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import SimpleMDE from "react-simplemde-editor";
 import { useForm, Controller } from "react-hook-form";
-import "easymde/dist/easymde.min.css";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { FaExclamationTriangle } from "react-icons/fa";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import { createIssueSchema } from "@/app/validationSchemas";
+import { TextField, Button, Callout, Text } from "@radix-ui/themes";
 
-interface IssueForm {
-  title: string;
-  description: string;
-}
+type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
   const router = useRouter();
-  const [error, setError] = React.useState<string | null>(null);
-  const { register, control, handleSubmit } = useForm<IssueForm>();
+  const [error, setError] = useState<string | null>(null);
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IssueForm>({
+    resolver: zodResolver(createIssueSchema),
+  });
   return (
     <div className="max-w-xl">
       {error && (
@@ -42,6 +49,11 @@ const NewIssuePage = () => {
         <TextField.Root>
           <TextField.Input placeholder="Title" {...register("title")} />
         </TextField.Root>
+        {errors.title && (
+          <Text as="p" className="text-red-500">
+            {errors.title.message}
+          </Text>
+        )}
         <Controller
           name="description"
           control={control}
@@ -49,6 +61,11 @@ const NewIssuePage = () => {
             <SimpleMDE placeholder="Description" {...field} />
           )}
         />
+        {errors.description && (
+          <Text as="p" className="text-red-500">
+            {errors.description.message}
+          </Text>
+        )}
 
         <Button>Submit New Issue</Button>
       </form>
