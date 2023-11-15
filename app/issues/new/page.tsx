@@ -11,12 +11,14 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import { createIssueSchema } from "@/app/validationSchemas";
 import { TextField, Button, Callout, Text } from "@radix-ui/themes";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import Spinner from "@/app/components/Spinner";
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setLoading] = useState(false);
   const {
     register,
     control,
@@ -40,9 +42,11 @@ const NewIssuePage = () => {
         className="space-y-10"
         onSubmit={handleSubmit(async (data) => {
           try {
+            setLoading(true);
             await axios.post("/api/issues", data);
             router.push("/issues");
           } catch (error) {
+            setLoading(false);
             setError("An Unexpected Error Occurred");
           }
         })}
@@ -60,7 +64,9 @@ const NewIssuePage = () => {
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
-        <Button>Submit New Issue</Button>
+        <Button disabled={isLoading}>
+          Submit New Issue {isLoading && <Spinner />}
+        </Button>
       </form>
     </div>
   );
