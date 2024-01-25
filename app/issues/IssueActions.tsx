@@ -4,8 +4,8 @@ import React from "react";
 
 const IssueActions = () => {
   return (
-    <div className="mb-4">
-      <Button>
+    <div className="mb-8">
+      <Button size={"4"}>
         <Link href="/issues/new">New Issue</Link>
       </Button>
     </div>
