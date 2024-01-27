@@ -4,7 +4,7 @@ import React from "react";
 
 const IssueActions = () => {
   return (
-    <div className="mb-8">
+    <div className="mb-8 flex justify-end">
       <Button size={"4"}>
         <Link href="/issues/new">New Issue</Link>
       </Button>

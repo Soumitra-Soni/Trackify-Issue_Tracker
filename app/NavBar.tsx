@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { FaChartBar } from "react-icons/fa";
@@ -12,12 +11,12 @@ const NavBar = () => {
     { href: "/issues", label: "Issues" },
   ];
   return (
-    <nav className="flex bg-slate-100 space-x-10 mb-10 p-10 h-14 items-center justify-between">
+    <nav className="flex flex-col bg-slate-100 mb-10 p-10 h-screen justify- gap-20">
       <Link href="/" className="flex gap-4">
         <FaChartBar size={"2em"} />
         <Heading>TRACKIFY</Heading>
       </Link>
-      <ul className="flex space-x-10 rounded-lg bg-transparent">
+      <ul className="flex flex-col rounded-lg bg-transparent gap-10">
         {links.map((link) => (
           <Link
             key={link.href}

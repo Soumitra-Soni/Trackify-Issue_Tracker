@@ -3,7 +3,7 @@ import "./globals.css";
 import "./theme-config.css";
 import { Inter } from "next/font/google";
 import "@radix-ui/themes/styles.css";
-import { Theme, ThemePanel } from "@radix-ui/themes";
+import { Theme } from "@radix-ui/themes";
 import NavBar from "./NavBar";
 
 const inter = Inter({
@@ -30,9 +30,10 @@ export default function RootLayout({
           grayColor="sage"
           radius="large"
           scaling="95%"
+          className="flex flex-row"
         >
           <NavBar />
-          <main className="p-5">{children}</main>
+          <main className="p-10 rounded-xl w-full">{children}</main>
         </Theme>
       </body>
     </html>
