@@ -40,10 +40,10 @@ export async function DELETE(
   if (!issue)
     return NextResponse.json(
       {
-        error: "Issue not found",
+        error: "Invalid issue",
       },
       { status: 404 }
     );
-  prisma.issue.delete({ where: { id: issue.id } });
+  await prisma.issue.delete({ where: { id: issue.id } });
   return NextResponse.json({});
 }
