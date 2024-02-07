@@ -48,9 +48,11 @@ export async function PATCH(
   return NextResponse.json(updatedIssue);
 }
 export async function DELETE(
-  // request: NextResponse,
+  request: NextResponse,
   { params }: { params: { id: string } }
 ) {
+  const { id } = params;
+
   const session = await getServerSession(authOptions);
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
