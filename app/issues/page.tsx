@@ -22,7 +22,7 @@ const IssuesPage = async () => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {issues.map((issue: Issue) => (
+          {issues.map((issue) => (
             <Table.Row key={issue.id}>
               <Table.Cell>
                 <div className="block md:hidden">
