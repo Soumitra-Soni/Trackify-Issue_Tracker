@@ -1,4 +1,4 @@
-import IssueForm from "../../components/IssueForm";
+import IssueForm from "../components/IssueForm";
 import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
 
