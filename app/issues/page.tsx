@@ -4,6 +4,7 @@ import { IssueStatusBadge, Link } from "@/app/components";
 import NextLink from "next/link";
 import IssueActions from "./IssueActions";
 import { Issue, Status } from "@prisma/client";
+import { Key } from "react";
 
 interface Props {
   searchParams: { status: Status };
@@ -35,10 +36,10 @@ const IssuesPage = async ({ searchParams }: Props) => {
         <Table.Header className="justify-between">
           <Table.Row>
             {columns.map((column) => (
-              <Table.ColumnHeaderCell key={column.value}>
+              <Table.ColumnHeaderCell key={column.value as Key}>
                 <NextLink
                   href={{
-                    query: { ...searchParams, orderBy: column.value },
+                    query: { ...searchParams, orderBy: column.value as string },
                   }}
                 >
                   {column.label}
