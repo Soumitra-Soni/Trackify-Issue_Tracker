@@ -7,6 +7,7 @@ import { Container, Theme } from "@radix-ui/themes";
 import NavBar from "./NavBar";
 import AuthProvider from "./auth/Provider";
 import QueryClientProvider from "./QueryClientProvider";
+import Head from "next/head";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,24 +25,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.variable}>
-        <QueryClientProvider>
-          <AuthProvider>
-            <Theme
-              appearance="light"
-              accentColor="cyan"
-              grayColor="sage"
-              radius="large"
-              scaling="95%"
-              className="flex flex-row"
-            >
-              <NavBar />
-              <main className="p-10 rounded-xl w-full">{children}</main>
-            </Theme>
-          </AuthProvider>
-        </QueryClientProvider>
-      </body>
-    </html>
+    <>
+      <Head>
+        <title>Trackify</title>
+        <meta name="description" content="Your everyday issue tracker." />
+        <link rel="icon" href="issue-tracker\public\favicon.ico" />
+      </Head>
+      <html lang="en">
+        <body className={inter.variable}>
+          <QueryClientProvider>
+            <AuthProvider>
+              <Theme
+                appearance="light"
+                accentColor="cyan"
+                grayColor="sage"
+                radius="large"
+                scaling="95%"
+                className="flex flex-row"
+              >
+                <NavBar />
+                <main className="p-10 rounded-xl w-full">{children}</main>
+              </Theme>
+            </AuthProvider>
+          </QueryClientProvider>
+        </body>
+      </html>
+    </>
   );
 }
